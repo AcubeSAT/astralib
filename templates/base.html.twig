@@ -2,11 +2,39 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}AstraLib{% endblock %}</title>
+
+        <!-- UIkit CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/css/uikit.min.css" />
+
+        <!-- UIkit JS -->
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit-icons.min.js"></script>
+
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="uk-container">
+            {% block body %}{% endblock %}
+        </div>
+
+        <div class="uk-section uk-section-xsmall uk-section-default uk-position-bottom" style="border-top: 1px solid #f2f2f2">
+			<div class="uk-container uk-container-small uk-text-small">
+				<div class="uk-grid" data-uk-grid="">
+					<div class="uk-width-expand uk-first-column">
+						<span class="uk-visible@s">Here we put the name of the website</span></a>
+					</div>
+					<div class="uk-width-auto uk-text-right">
+                    Built with AstraLib
+                    <a href="https://gitlab.com/acubesat/utilities/astralib">
+                        <span uk-icon="icon: github-alt"></span>
+                    </a>
+                    </div>
+				</div>
+			</div>
+		</div>
+
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>
