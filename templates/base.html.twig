@@ -23,6 +23,46 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        {% block navbar %}
+            {% set route_name = app.request.attributes.get('_route') %}
+
+            <nav class="uk-navbar-container uk-navbar-transparent uk-margin uk-background-secondary uk-light" uk-navbar>
+                <div class="uk-navbar-left uk-margin-left">
+
+                    <a class="uk-navbar-item uk-logo" href="{{ path('landing') }}">{{ app.request.server.get('APP_NAME') }}</a>
+
+                    <ul class="uk-navbar-nav">
+                        <li>
+                            <a href="#">
+                                <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span>
+                                Features
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="uk-navbar-right uk-margin-right">
+
+                    <form class="uk-search uk-search-default">
+                        <span uk-search-icon></span>
+                        <input class="uk-search-input" type="search" placeholder="">
+                    </form>
+
+                    <ul class="uk-navbar-nav">
+                        {% if app.user %}
+                            <li><a>Logged in as <code>{{ app.user.username }}</code></a></li>
+                            <li><a href="{{ path('app_logout') }}">Logout</a></li>
+                        {% else %}
+                        <li class="{% if route_name == "app_login" %}uk-active{% endif %}"><a href="{{ path('app_login') }}">Login</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+        </nav>
+
+
+        {% endblock %}
+
         <div class="uk-container">
             {% block body %}{% endblock %}
         </div>
