@@ -5,11 +5,20 @@
         <title>{% block title %}AstraLib{% endblock %}</title>
 
         <!-- UIkit CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/css/uikit.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.7.2/dist/css/uikit.min.css" />
 
         <!-- UIkit JS -->
-        <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit-icons.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.2/dist/js/uikit.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.2/dist/js/uikit-icons.min.js"></script>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500&family=Roboto+Mono&display=swap" rel="stylesheet">
+
+        <!-- Extra fun stuff -->
+        <link rel="stylesheet" href="{{ asset('css/materialize_colors.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
         {% block stylesheets %}{% endblock %}
     </head>
