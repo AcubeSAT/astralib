@@ -17,6 +17,8 @@ framework:
     php_errors:
         log: true
 
+    # translator: { fallbacks: ['%locale%'] }
+
 when@test:
     framework:
         test: true

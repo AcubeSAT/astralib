@@ -21,5 +21,12 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
+
+    admin.category:
+        class: App\Admin\DocumentAdmin
+        arguments: [~, App\Entity\Document, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Document }
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
