@@ -21,6 +21,18 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
+    Symfony\Component\Ldap\Ldap:
+        arguments: ['@Symfony\Component\Ldap\Adapter\ExtLdap\Adapter']
+        tags:
+            - ldap
+    Symfony\Component\Ldap\Adapter\ExtLdap\Adapter:
+        arguments:
+            -   host: "%env(LDAP_HOST)%"
+                port: "%env(LDAP_PORT)%"
+                encryption: none
+                options:
+                    protocol_version: 3
+                    referrals: false
 
     admin.category:
         class: App\Admin\DocumentAdmin
