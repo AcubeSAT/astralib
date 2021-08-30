@@ -1,7 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-What is this toast
+
+<div class="uk-grid-divider uk-child-width-expand@s" uk-grid>
+    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+    <div>
+        <h3>Recent Documents</h3>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+    </div>
+    <div>
+        <div class="js-upload uk-placeholder uk-text-center">
+            <span uk-icon="icon: cloud-upload"></span>
+            <span class="uk-text-middle">Upload a new document by dropping it here or</span>
+            <div uk-form-custom>
+                <input type="file" multiple>
+                <span class="uk-link">selecting one</span>
+            </div>
+        </div>
+
+        <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+    </div>
+</div>
 
 {{ categories|raw }}
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('js/upload.js') }}"></script>
 {% endblock %}
