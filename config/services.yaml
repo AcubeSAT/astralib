@@ -29,16 +29,22 @@ services:
         arguments:
             -   host: "%env(LDAP_HOST)%"
                 port: "%env(LDAP_PORT)%"
-                encryption: none
+                encryption: tls
                 options:
                     protocol_version: 3
                     referrals: false
 
-    admin.category:
+    admin.document:
         class: App\Admin\DocumentAdmin
         arguments: [~, App\Entity\Document, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Document }
+
+    admin.category:
+        class: App\Admin\CategoryAdmin
+        arguments: [~, App\Entity\Category, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Category }
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
