@@ -2,3 +2,27 @@
     font-family: "Roboto Mono", monospace;
     font-size: .95rem;
 }
+
+.design-strut-1 {
+    position: fixed;
+    width: 150vw;
+    bottom: -20vh;
+    height: 55vh;
+    background-color: #005bbd;
+    left: 0;
+    z-index: -100;
+    transform: rotate(-15deg);
+    box-shadow: 0px 0px 30px -10px rgba(0,0,0,0.5) inset;
+}
+
+.design-strut-2 {
+    position: fixed;
+    width: 150vw;
+    bottom: -10vh;
+    height: 55vh;
+    background-color: #6cb6ff;
+    right: 25vw;
+    z-index: -100;
+    transform: rotate(75deg);
+    box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.3) inset, 0px 0px 30px -10px rgba(0,0,0,0.5);
+}

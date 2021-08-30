@@ -13,6 +13,19 @@ class LandingController extends AbstractController
       */
     public function index()
     {
-        return $this->render('landing/index.html.twig');
+        $repo = $this->getDoctrine()->getRepository('App\Entity\Category');
+        $htmlTree = $repo->childrenHierarchy(
+            null, /* starting from root nodes */
+            false, /* true: load all children, false: only direct */
+            array(
+                'decorate' => true,
+                'representationField' => 'slug',
+                'html' => true
+            )
+        );
+
+        return $this->render('landing/index.html.twig', [
+            'categories' => $htmlTree
+        ]);
     }
 }
