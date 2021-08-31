@@ -1,58 +1,59 @@
-var bar = document.getElementById('js-progressbar');
+const $bar = document.getElementById('js--progressbar');
+const $alertContainer = document.getElementById('js--alert-container');
+
+let hideBar = function () {
+    $bar.style.opacity = "0";
+
+    setTimeout(function () {
+        $bar.setAttribute('hidden', 'hidden');
+        $bar.style.opacity = "1";
+    }, 1000);
+}
 
 UIkit.upload('.js-upload', {
 
     url: '/document/upload',
     multiple: false,
-    allow: "*.pdf",
+    // allow: "*.pdf",
     name: 'file',
+    type: 'json',
 
-    beforeSend: function () {
-        console.log('beforeSend', arguments);
-    },
     beforeAll: function () {
-        console.log('beforeAll', arguments);
-    },
-    load: function () {
-        console.log('load', arguments);
+        $alertContainer.innerHTML = '';
     },
     error: function () {
         console.log('error', arguments);
-    },
-    complete: function () {
-        console.log('complete', arguments);
-    },
 
+        const errors = arguments[0].xhr.response;
+        for (const error of errors) {
+            let alert = crel('div', { 'class': 'uk-alert-danger', 'uk-alert': null },
+                crel('a', { 'class': 'uk-alert-close', 'uk-close': null }),
+                crel('p', error)
+            );
+
+            console.log(alert);
+
+            $alertContainer.appendChild(alert);
+        }
+
+        hideBar();
+    },
     loadStart: function (e) {
-        console.log('loadStart', arguments);
-
-        bar.removeAttribute('hidden');
-        bar.max = e.total;
-        bar.value = e.loaded;
+        $bar.removeAttribute('hidden');
+        $bar.max = e.total;
+        $bar.value = e.loaded;
     },
-
     progress: function (e) {
-        console.log('progress', arguments);
-
-        bar.max = e.total;
-        bar.value = e.loaded;
+        $bar.max = e.total;
+        $bar.value = e.loaded;
     },
-
     loadEnd: function (e) {
-        console.log('loadEnd', arguments);
-
-        bar.max = e.total;
-        bar.value = e.loaded;
+        $bar.max = e.total;
+        $bar.value = e.loaded;
     },
-
     completeAll: function () {
         console.log('completeAll', arguments);
 
-        setTimeout(function () {
-            bar.setAttribute('hidden', 'hidden');
-        }, 1000);
-
-        alert('Upload Completed');
+        hideBar();
     }
-
 });

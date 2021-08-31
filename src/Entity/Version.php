@@ -25,14 +25,14 @@ class Version
     private $number;
 
     /**
-     * @ORM\Column(type="simple_array")
+     * @ORM\Column(type="simple_array", nullable=true)
      */
     private $variant = [];
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $public;
+    private $public = false;
 
     /**
      * @ORM\Column(type="datetime")
@@ -57,6 +57,7 @@ class Version
 
     public function __construct()
     {
+        $this->date = new \DateTimeImmutable();
         $this->metadata = new ArrayCollection();
         $this->sources = new ArrayCollection();
     }
