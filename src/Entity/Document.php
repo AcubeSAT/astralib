@@ -35,7 +35,7 @@ class Document
     private $versions;
 
     /**
-     * @ORM\OneToMany(targetEntity=AuthorDocument::class, mappedBy="document")
+     * @ORM\OneToMany(targetEntity=AuthorDocument::class, mappedBy="document", cascade={"persist"})
      */
     private $authors;
 

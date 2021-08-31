@@ -4,7 +4,10 @@ namespace App\Repository;
 
 use App\Entity\AuthorDocument;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Persistence\ManagerRegistry;
+use Gedmo\Sortable\Entity\Repository\SortableRepository;
 
 /**
  * @method AuthorDocument|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,11 +15,11 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method AuthorDocument[]    findAll()
  * @method AuthorDocument[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AuthorDocumentRepository extends ServiceEntityRepository
+class AuthorDocumentRepository extends SortableRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(EntityManagerInterface $em, ClassMetadata $class)
     {
-        parent::__construct($registry, AuthorDocument::class);
+        parent::__construct($em, $class);
     }
 
     // /**

@@ -65,6 +65,16 @@
         {% endblock %}
 
         <div class="uk-container">
+            {# Display of session flashbag messages #}
+            {% for type, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="uk-alert-{{ type }}" uk-alert>
+                        <a class="uk-alert-close" uk-close></a>
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
             {% block body %}{% endblock %}
         </div>
 

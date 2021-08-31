@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AuthorDocumentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=AuthorDocumentRepository::class)
@@ -32,7 +33,13 @@ class AuthorDocument
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private $type;
+    private $type = "Author";
+
+    /**
+     * @Gedmo\SortablePosition
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position = 0;
 
     public function getId(): ?int
     {
@@ -73,5 +80,20 @@ class AuthorDocument
         $this->type = $type;
 
         return $this;
+    }
+
+    public function setPosition($position)
+    {
+        $this->position = $position;
+    }
+
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    public function __toString()
+    {
+        return $this->getAuthor()->__toString();
     }
 }

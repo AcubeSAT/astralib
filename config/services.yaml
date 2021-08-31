@@ -47,5 +47,16 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: Category }
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    admin.author:
+        class: App\Admin\AuthorAdmin
+        arguments: [~, App\Entity\Author, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Author }
+        public: true
+
+    admin.author_document:
+        class: App\Admin\AuthorDocumentAdmin
+        arguments: [~, App\Entity\AuthorDocument, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: AuthorDocument }
+        public: true

@@ -88,6 +88,7 @@ class DocumentController extends AbstractController
             $manager->persist($source);
             $manager->flush();
 
+            $this->addFlash('success', 'New document has been uploaded and archived successfully');
             return new Response("Everything is good");
         }
 
