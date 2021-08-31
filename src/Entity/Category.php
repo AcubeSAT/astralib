@@ -74,6 +74,13 @@ class Category
      */
     private $abstract;
 
+    /**
+     * A class name/combination from https://materializecss.com/color.html
+     * @todo Support hex strings
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $colour;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
@@ -147,7 +154,20 @@ class Category
         return $this;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getName();
+    }
+
+    public function getColour(): ?string
+    {
+        return $this->colour;
+    }
+
+    public function setColour(?string $colour): self
+    {
+        $this->colour = $colour;
+
+        return $this;
     }
 }

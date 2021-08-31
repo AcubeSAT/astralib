@@ -49,7 +49,7 @@
                 <dt>Categories</dt>
                 <dd>
                     {% for category in document.categories %}
-                        <span class="uk-label">{{ category.name }}</span>
+                        <span class="uk-label {{ category.colour }}">{{ category.name }}</span>
                     {% endfor %}
                 </dd>
 
