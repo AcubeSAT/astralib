@@ -5,23 +5,38 @@
 {% block body %}
     <h1>Document index</h1>
 
-    <table class="table">
+    <table class="uk-table uk-table-divider uk-table-responsive uk-text-center uk-text-left@m">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Docid</th>
-                <th>actions</th>
+                <th><a class="" href="/mm/docList/?sort=docid">ID</a></th>
+                <th><a class="" href="/mm/docList/?sort=subsystem">Subsystem</a></th>
+                <th><a class="" href="/mm/docList/?sort=title">Title</a></th>
+                <th>Download</th>
+                <th class="uk-visible@l">Thumbnail</th>
+                <th class="uk-width-medium"><a class="" href="/mm/docList/?sort=author">Author</a></th>
+                <th><a class="" href="/mm/docList/?sort=created">Date</a></th>
             </tr>
         </thead>
         <tbody>
         {% for document in documents %}
             <tr>
-                <td>{{ document.id }}</td>
-                <td>{{ document.title }}</td>
-                <td>{{ document.docid }}</td>
+                <td><code>{{ document.docid }}</code></td>
+                <td></td>
+                <td colspan="3">
+                    <a href="{{ path('document_show', {'id': document.id}) }}" class="uk-link-text">
+                        <strong>{{ document.title }}</strong>
+                    </a>
+                    <div>
+                    {% for category in document.categories %}
+                        <span class="uk-label {{ category.colour }}">{{ category.name }}</span>
+                    {% endfor %}
+                    </div>
+                </td>
+{#                <td></td>#}
+{#                <td></td>#}
+                <td>{{ document.authors|map(a => a.author.name)|join(", ") }}</td>
                 <td>
-                    <a href="{{ path('document_show', {'id': document.id}) }}">show</a>
+                    <time>27 August 2019</time>
                 </td>
             </tr>
         {% else %}

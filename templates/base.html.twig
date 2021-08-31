@@ -27,7 +27,8 @@
         {% block navbar %}
             {% set route_name = app.request.attributes.get('_route') %}
 
-            <nav class="uk-navbar-container uk-navbar-transparent uk-background-secondary uk-light" uk-navbar>
+            <div uk-sticky="show-on-up: true; animation: uk-animation-slide-top; media: @m">
+        <nav class="uk-navbar-container uk-navbar-transparent uk-background-secondary uk-light" uk-navbar>
                 <div class="uk-navbar-left uk-margin-left">
 
                     <a class="uk-navbar-item uk-logo" href="{{ path('landing') }}">{{ app.request.server.get('APP_NAME') }}</a>
@@ -60,6 +61,7 @@
                     </ul>
                 </div>
         </nav>
+            </div>
         {% endblock %}
 
         {% block top %}{% endblock %}
@@ -78,7 +80,9 @@
             {% block body %}{% endblock %}
         </div>
 
-        <div class="uk-section uk-section-xsmall uk-section-default uk-position-bottom" style="border-top: 1px solid #f2f2f2">
+        <div class="flex-self-expand"></div>
+
+        <footer class="uk-section uk-section-xsmall uk-section-default uk-position-bottom" style="border-top: 1px solid #f2f2f2">
 			<div class="uk-container uk-container-small uk-text-small">
 				<div class="uk-grid" data-uk-grid="">
 					<div class="uk-width-expand uk-first-column">
@@ -92,7 +96,7 @@
                     </div>
 				</div>
 			</div>
-		</div>
+		</footer>
 
 
         {% block javascripts %}{% endblock %}

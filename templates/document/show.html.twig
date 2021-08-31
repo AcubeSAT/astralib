@@ -4,13 +4,13 @@
 
 {% block top %}
     <header class="uk-panel uk-background-primary uk-light uk-flex uk-flex-middle">
-        <div class="uk-float-left flex-self-expand uk-text-center" style="max-width: calc((100vw - 1300px) / 2)">
-            <a class="uk-button uk-button-default uk-padding-remove" name="Go back" href="{{ path('document_index') }}">
+        <aside class="uk-float-left flex-self-expand uk-text-center header-sidelinks">
+            <a class="uk-button uk-button-default uk-padding-remove" title="Go back" href="{{ path('document_index') }}">
                 <span uk-icon="icon: chevron-left; ratio:2"></span>
             </a><br>
             GO BACK
 {#            <a href="{{ path('document_index') }}">back to list</a>#}
-        </div>
+        </aside>
         <div class="uk-padding uk-container uk-flex uk-flex-between uk-flex-middle uk-flex-wrap flex-self-expand">
             <h1 class="uk-heading-line uk-heading-small uk-margin-remove-top uk-margin-right" title="Document Title">{{ document.title }}</h1>
             <span class="uk-heading-small uk-text-lead uk-margin-remove-top" title="Document Identifier">{{ document.docid }}</span>
@@ -21,12 +21,20 @@
             <time class="flex-self-top">15 August 2021</time>
         </div>
 
-        <div class="uk-float-left flex-self-expand uk-text-center uk-dark" style="max-width: calc((100vw - 1300px) / 2)">
-            <a class="uk-button uk-button-default uk-padding-remove" name="Permalink" href="">
-                <span uk-icon="icon: link; ratio:2"></span>
-            </a><br>
-            PERMALINK
-        </div>
+        <aside class="uk-float-left flex-self-expand uk-text-center header-sidelinks" style="max-width: calc((100vw - 1300px) / 2)">
+            <div class="uk-display-inline-block uk-margin-small-left uk-margin-small-right">
+                <a class="uk-button uk-button-default uk-padding-remove" title="Permalink" href="{{ path('document_show', { id: document.id }) }}">
+                    <span uk-icon="icon: link; ratio:2"></span>
+                </a><br>
+                PERMALINK
+            </div>
+            <div class="uk-display-inline-block uk-margin-small-left uk-margin-small-right">
+                <a class="uk-button uk-button-default uk-padding-remove" title="Edit" href="{{ path('admin_app_document_edit', { id: document.id }) }}">
+                    <span uk-icon="icon: pencil; ratio:2"></span>
+                </a><br>
+                EDIT
+            </div>
+        </aside>
     </header>
 {% endblock %}
 

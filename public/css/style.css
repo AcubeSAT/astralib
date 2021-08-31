@@ -35,10 +35,31 @@
     align-self: flex-start;
 }
 
+.flex-self-bottom {
+    align-self: flex-end;
+}
+
 .flex-self-expand {
     flex: 1;
 }
 
 .flex-separator {
     flex-basis: 100%;
+}
+
+html,
+body {
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+body {
+    /* Used to make sure that the position:absolute footer is position in relation to the body */
+    position: relative;
+    padding-bottom: 80px;
+}
+
+.header-sidelinks {
+    max-width: calc((100vw - 1300px) / 2);
+    min-width: 200px;
 }
