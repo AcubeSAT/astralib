@@ -14,32 +14,16 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CategoryRepository extends NestedTreeRepository
 {
-    // /**
-    //  * @return Category[] Returns an array of Category objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Sets the colour of all children of this category to the colour of this category.
+     * This function also _persists_ the objects in memory
+     */
+    public function propagateColours(Category $category): void
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        // $this->children already does the tree traversal for us
+        /** @var Category $child */
+        foreach ($this->children($category) as $child) {
+            $child->setColour($category->getColour());
+        }
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Category
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

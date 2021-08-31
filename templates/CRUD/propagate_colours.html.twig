@@ -1,0 +1,40 @@
+{% extends base_template %}
+
+{%- block actions -%}
+    {% include '@SonataAdmin/CRUD/action_buttons.html.twig' %}
+{%- endblock -%}
+
+{%- block tab_menu -%}
+    {{ knp_menu_render(admin.sidemenu(action), {
+        'currentClass': 'active',
+        'template': get_global_template('tab_menu_template')
+    }, 'twig') }}
+{%- endblock -%}
+
+{% block content %}
+    <div class="sonata-ba-delete">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">{{ action|humanize }} confirmation</h3>
+            </div>
+            <div class="box-body">
+                {{ prompt|default("Are you sure you want to execute action " ~ action|humanize ~ " on object \"" ~ admin.toString(object)) ~ "\"?" }}
+            </div>
+            <div class="box-footer clearfix">
+                <form method="POST" action="{{ admin.generateObjectUrl(action, object) }}">
+                    <input type="hidden" name="_method" value="{{ method|default('POST') }}">
+                    <input type="hidden" name="_sonata_csrf_token" value="{{ csrf_token }}">
+
+                    <button type="submit" name="btn_action" class="btn btn-primary"><i class="fas fa-check" aria-hidden="true"></i> {{ action|humanize }}</button>
+                    {% if admin.hasRoute('edit') and admin.hasAccess('edit', object) %}
+                        {{ 'delete_or'|trans({}, 'SonataAdminBundle') }}
+
+                        <a class="btn btn-default" href="{{ admin.generateObjectUrl('edit', object) }}">
+                            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                            {{ 'link_action_edit'|trans({}, 'SonataAdminBundle') }}</a>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

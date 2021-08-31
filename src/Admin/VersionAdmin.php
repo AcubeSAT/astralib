@@ -17,7 +17,6 @@ use Sonata\Form\Type\CollectionType;
 
 final class VersionAdmin extends AbstractAdmin
 {
-
     protected function configureDatagridFilters(DatagridMapper $filter): void
     {
         $filter

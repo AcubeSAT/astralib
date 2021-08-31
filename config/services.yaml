@@ -43,7 +43,7 @@ services:
 
     admin.category:
         class: App\Admin\CategoryAdmin
-        arguments: [~, App\Entity\Category, ~]
+        arguments: [~, App\Entity\Category, App\Controller\Admin\CategoryAdminController]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Category }
 

@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
+use Sonata\AdminBundle\Route\RouteCollectionInterface;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\BooleanType;
 use Symfony\Component\Form\CallbackTransformer;
@@ -32,7 +33,8 @@ final class CategoryAdmin extends AbstractAdmin
         $form->add('colour', FormType::class, [
             'attr' => [
                 'class' => 'row'
-            ]
+            ],
+            'help' => 'Visit https://material.io/resources/color to experiment with the Material palette.'
         ]);
 
         $colour = $form->get('colour');
@@ -80,8 +82,8 @@ final class CategoryAdmin extends AbstractAdmin
                 'Darken 4 (900)' => 'darken-4',
                 'Accent 1 (A100)' => 'accent-1',
                 'Accent 2 (A200)' => 'accent-2',
-                'Accent 3 (A300)' => 'accent-3',
-                'Accent 4 (A400)' => 'accent-4',
+                'Accent 3 (A400)' => 'accent-3',
+                'Accent 4 (A700)' => 'accent-4',
             ],
             'row_attr' => [
                 'class' => 'col-sm-4'
@@ -132,6 +134,16 @@ final class CategoryAdmin extends AbstractAdmin
         $list->addIdentifier('name');
         $list->addIdentifier('abstract');
         $list->addIdentifier('parent');
+        $list->add(ListMapper::NAME_ACTIONS, null, [
+            'actions' => [
+                'show' => [],
+                'edit' => [],
+                'delete' => [],
+                'propagate_colours' => [
+                    'template' => 'CRUD/list__action_propagate_colours.html.twig',
+                ]
+            ],
+        ]);
     }
 
     protected function configureShowFields(ShowMapper $show): void
@@ -141,4 +153,12 @@ final class CategoryAdmin extends AbstractAdmin
         $show->add('abstract');
         $show->add('parent');
     }
+
+    protected function configureRoutes(RouteCollectionInterface $collection): void
+    {
+        $collection
+            ->add('propagate_colours', $this->getRouterIdParameter().'/propagate_colours');
+    }
+
+
 }
