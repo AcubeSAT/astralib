@@ -27,7 +27,7 @@
         {% block navbar %}
             {% set route_name = app.request.attributes.get('_route') %}
 
-            <nav class="uk-navbar-container uk-navbar-transparent uk-margin uk-background-secondary uk-light" uk-navbar>
+            <nav class="uk-navbar-container uk-navbar-transparent uk-background-secondary uk-light" uk-navbar>
                 <div class="uk-navbar-left uk-margin-left">
 
                     <a class="uk-navbar-item uk-logo" href="{{ path('landing') }}">{{ app.request.server.get('APP_NAME') }}</a>
@@ -60,11 +60,11 @@
                     </ul>
                 </div>
         </nav>
-
-
         {% endblock %}
 
-        <div class="uk-container">
+        {% block top %}{% endblock %}
+
+        <div class="uk-container uk-margin-top">
             {# Display of session flashbag messages #}
             {% for type, messages in app.flashes %}
                 {% for message in messages %}

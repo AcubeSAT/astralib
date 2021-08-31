@@ -2,25 +2,79 @@
 
 {% block title %}Document{% endblock %}
 
+{% block top %}
+    <header class="uk-panel uk-background-primary uk-light uk-flex uk-flex-middle">
+        <div class="uk-float-left flex-self-expand uk-text-center" style="max-width: calc((100vw - 1300px) / 2)">
+            <a class="uk-button uk-button-default uk-padding-remove" name="Go back" href="{{ path('document_index') }}">
+                <span uk-icon="icon: chevron-left; ratio:2"></span>
+            </a><br>
+            GO BACK
+{#            <a href="{{ path('document_index') }}">back to list</a>#}
+        </div>
+        <div class="uk-padding uk-container uk-flex uk-flex-between uk-flex-middle uk-flex-wrap flex-self-expand">
+            <h1 class="uk-heading-line uk-heading-small uk-margin-remove-top uk-margin-right" title="Document Title">{{ document.title }}</h1>
+            <span class="uk-heading-small uk-text-lead uk-margin-remove-top" title="Document Identifier">{{ document.docid }}</span>
+
+            <div class="flex-separator"></div>
+
+            <span>{{ document.authors|map(a => a.author.name)|join(", ") }}</span>
+            <time class="flex-self-top">15 August 2021</time>
+        </div>
+
+        <div class="uk-float-left flex-self-expand uk-text-center uk-dark" style="max-width: calc((100vw - 1300px) / 2)">
+            <a class="uk-button uk-button-default uk-padding-remove" name="Permalink" href="">
+                <span uk-icon="icon: link; ratio:2"></span>
+            </a><br>
+            PERMALINK
+        </div>
+    </header>
+{% endblock %}
+
 {% block body %}
-    <h1>Document</h1>
+    <div class="uk-child-width-expand@s uk-grid-divider" uk-grid>
+        <section class="uk-width-expand@m">
+            <h3>Document Information</h3>
+            <dl class="uk-description-list">
+                <dt>Title</dt>
+                <dd>{{ document.title }}</dd>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ document.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ document.title }}</td>
-            </tr>
-            <tr>
-                <th>Docid</th>
-                <td>{{ document.docid }}</td>
-            </tr>
-        </tbody>
-    </table>
+                <dt>Dates</dt>
+                <dd>
+                    <div class="uk-child-width-expand@s" uk-grid>
+                        <span>Created at <time>15 August 2021</time></span>
+                        <span class="uk-text-right">Last update at <time>20 August 2021</time></span>
+                    </div>
+                </dd>
 
-    <a href="{{ path('document_index') }}">back to list</a>
+                <dt>Categories</dt>
+                <dd>
+                    {% for category in document.categories %}
+                        <span class="uk-label">{{ category.name }}</span>
+                    {% endfor %}
+                </dd>
+
+            </dl>
+        </section>
+        <section class="uk-width-auto@m">
+            <h3>Authors</h3>
+            <p>
+            <table class="uk-table uk-table-small uk-table-divider">
+                <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for author in document.authors %}
+                    <tr>
+                        <td>{{ author.type }}</td>
+                        <td>{{ author.author.name }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </p>
+        </section>
+    </div>
 {% endblock %}

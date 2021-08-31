@@ -30,7 +30,7 @@ class Source
     /**
      * @ORM\Column(type="text")
      */
-    private $url;
+    private $url = "";
 
     /**
      * Size of the file in bytes
@@ -141,5 +141,13 @@ class Source
     public function getFile(): ?File
     {
         return $this->file;
+    }
+
+    public function __toString(): string
+    {
+        $url = $this->getUrl();
+        $url = (strlen($url) > 13) ? '...' . substr($url,-10,10) : $url;
+
+        return $this->getType() . ' ' . $url;
     }
 }

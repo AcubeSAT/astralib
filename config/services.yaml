@@ -60,3 +60,17 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: AuthorDocument }
         public: true
+
+    admin.metadata:
+        class: App\Admin\MetadataAdmin
+        arguments: [~, App\Entity\Metadata, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Metadata }
+        public: true
+
+    admin.version:
+        class: App\Admin\VersionAdmin
+        arguments: [~, App\Entity\Version, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Version }
+        public: true

@@ -25,6 +25,10 @@ final class DocumentAdmin extends AbstractAdmin
                 'edit' => 'inline',
                 'inline' => 'table',
                 'sortable' => 'position',
+            ])
+            ->add('categories', ModelType::class, [
+                'multiple' => true,
+                'by_reference' => false
             ]);
     }
 

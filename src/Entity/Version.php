@@ -46,7 +46,7 @@ class Version
     private $document;
 
     /**
-     * @ORM\OneToMany(targetEntity=Metadata::class, mappedBy="version", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Metadata::class, mappedBy="version", orphanRemoval=true, cascade={"persist"})
      */
     private $metadata;
 

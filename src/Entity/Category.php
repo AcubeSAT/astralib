@@ -27,7 +27,7 @@ class Category
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Document::class, inversedBy="categories")
+     * @ORM\ManyToMany(targetEntity=Document::class, inversedBy="categories", cascade={"persist"})
      */
     private $documents;
 

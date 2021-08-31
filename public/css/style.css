@@ -30,3 +30,15 @@
 .transition-opacity {
     transition: opacity 1s;
 }
+
+.flex-self-top {
+    align-self: flex-start;
+}
+
+.flex-self-expand {
+    flex: 1;
+}
+
+.flex-separator {
+    flex-basis: 100%;
+}

@@ -33,6 +33,11 @@ class Metadata
      */
     private $version;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $locked = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -50,12 +55,13 @@ class Metadata
         return $this;
     }
 
-    public function getData(): ?array
+    /** @noinspection PhpMissingReturnTypeInspection */
+    public function getData()
     {
         return $this->data;
     }
 
-    public function setData(array $data): self
+    public function setData($data): self
     {
         $this->data = $data;
 
@@ -72,5 +78,22 @@ class Metadata
         $this->version = $version;
 
         return $this;
+    }
+
+    public function getLocked(): ?bool
+    {
+        return $this->locked;
+    }
+
+    public function setLocked(bool $locked): self
+    {
+        $this->locked = $locked;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getName() . ': ' . json_encode($this->getData());
     }
 }

@@ -40,7 +40,7 @@ class Document
     private $authors;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="documents")
+     * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="documents", cascade={"persist"})
      */
     private $categories;
 
@@ -165,5 +165,10 @@ class Document
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
     }
 }
