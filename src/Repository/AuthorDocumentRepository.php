@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Author;
 use App\Entity\AuthorDocument;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,9 +18,20 @@ use Gedmo\Sortable\Entity\Repository\SortableRepository;
  */
 class AuthorDocumentRepository extends SortableRepository
 {
+    /**
+     * A list of author types that should not be listed as regular authors
+     * @var string[]
+     */
+    private $typeBlockList = [ "copyeditor", "reviewer", "director" ];
+
     public function __construct(EntityManagerInterface $em, ClassMetadata $class)
     {
         parent::__construct($em, $class);
+    }
+
+    public function isRegularAuthor(AuthorDocument $authorDocument): bool
+    {
+        return in_array(strtolower($authorDocument->getType()), $this->typeBlockList);
     }
 
     // /**

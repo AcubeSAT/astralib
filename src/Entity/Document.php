@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
+use App\Repository\AuthorDocumentRepository;
 use App\Repository\DocumentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=DocumentRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Document
 {
@@ -44,10 +47,16 @@ class Document
      */
     private $categories;
 
+    /**
+     * @var Collection
+     */
+    private $regularAuthors;
+
     public function __construct()
     {
         $this->versions = new ArrayCollection();
         $this->authors = new ArrayCollection();
+        $this->regularAuthors = new ArrayCollection();
         $this->categories = new ArrayCollection();
     }
 
@@ -170,5 +179,32 @@ class Document
     public function __toString()
     {
         return $this->getTitle();
+    }
+
+    public function getLatestVersion(): Version
+    {
+        //TODO: Fix
+        return $this->getVersions()->last();
+    }
+
+    public function getOldestVersion(): Version
+    {
+        //TODO: Fix
+        return $this->getVersions()->first();
+    }
+
+    public function getCreationDate(): \DateTimeInterface
+    {
+        return $this->getOldestVersion()->getDate();
+    }
+
+    public function getRevisionDate(): \DateTimeInterface
+    {
+        return $this->getLatestVersion()->getDate();
+    }
+
+    public function getDate()
+    {
+        return $this->getCreationDate();
     }
 }

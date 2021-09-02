@@ -1,5 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="schema.DC" href="http://purl.org/dc/terms/" >
+    <meta name="DC.title" content="{{ document.title }}">
+    <meta name="DC.date" content="{{ document.date|date }}">
+    <meta name="DC.creator" content="{{ document.authors|map(a => a.author.name)|join(", ") }}">
+{% endblock %}
+
 {% block title %}Document{% endblock %}
 
 {% block top %}
@@ -49,8 +56,8 @@
                 <dt>Dates</dt>
                 <dd>
                     <div class="uk-child-width-expand@s" uk-grid>
-                        <span>Created at <time>15 August 2021</time></span>
-                        <span class="uk-text-right">Last update at <time>20 August 2021</time></span>
+                        <span>Created at <time>{{ document.creationDate|date }}</time></span>
+                        <span class="uk-text-right">Last update at <time>{{ document.revisionDate|date }}</time></span>
                     </div>
                 </dd>
 
