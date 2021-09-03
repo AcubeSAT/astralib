@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Document;
 use App\Entity\Source;
 use App\Entity\Version;
+use App\Event\FileUpdatedEvent;
 use App\Form\UploadType;
 use App\Repository\DocumentRepository;
 use Doctrine\ORM\EntityManager;
@@ -19,6 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\File as FileConstraint;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @Route("/document")
@@ -38,7 +40,7 @@ class DocumentController extends AbstractController
     /**
      * @Route("/upload", name="document_upload", methods={"POST"})
      */
-    public function upload(Request $request, ValidatorInterface $validator, EntityManagerInterface $manager): Response
+    public function upload(Request $request, ValidatorInterface $validator, EntityManagerInterface $manager, EventDispatcherInterface $dispatcher): Response
     {
         if ($file = $request->files->get('file')) {
             /** @var $file UploadedFile */
@@ -81,7 +83,8 @@ class DocumentController extends AbstractController
             $source->setType(Source::InternalType);
             $source->setFile($file);
 
-            dump($source);
+            $event = new FileUpdatedEvent($source);
+            $dispatcher->dispatch($event);
 
             $manager->persist($document);
             $manager->persist($version);

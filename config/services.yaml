@@ -35,6 +35,10 @@ services:
                     protocol_version: 3
                     referrals: false
 
+    AstraLib\PDFParser\EventListener:
+        tags:
+            - { name: kernel.event_listener, event: App\Event\FileUpdatedEvent }
+
     admin.document:
         class: App\Admin\DocumentAdmin
         arguments: [~, App\Entity\Document, ~]
