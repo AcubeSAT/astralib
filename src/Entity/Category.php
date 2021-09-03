@@ -81,6 +81,16 @@ class Category
      */
     private $colour;
 
+    /**
+     * @ORM\Column(type="string", length=40, nullable=true)
+     */
+    private $icon;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $metaContentType;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
@@ -167,6 +177,30 @@ class Category
     public function setColour(?string $colour): self
     {
         $this->colour = $colour;
+
+        return $this;
+    }
+
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    public function setIcon(?string $icon): self
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+    public function getMetaContentType(): ?string
+    {
+        return $this->metaContentType;
+    }
+
+    public function setMetaContentType(?string $metaContentType): self
+    {
+        $this->metaContentType = $metaContentType;
 
         return $this;
     }

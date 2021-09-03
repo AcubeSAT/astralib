@@ -21,7 +21,9 @@
         {% for document in documents %}
             <tr>
                 <td><code>{{ document.docid }}</code></td>
-                <td></td>
+                <td>{% if document.icon %}
+                    <span uk-icon="icon: {{ document.icon }}"></span>
+                {% endif %}</td>
                 <td colspan="3">
                     <a href="{{ path('document_show', {'id': document.id}) }}" class="uk-link-text">
                         <strong>{{ document.title }}</strong>

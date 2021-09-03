@@ -61,6 +61,8 @@ final class DocumentAdmin extends AbstractAdmin
             ->add('id')
             ->add('title')
             ->add('docid')
-            ->add('authors');
+            ->add('authors')
+            ->add('categories')
+            ->add('versions');
     }
 }

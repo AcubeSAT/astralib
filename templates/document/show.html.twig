@@ -2,9 +2,15 @@
 
 {% block stylesheets %}
     <link rel="schema.DC" href="http://purl.org/dc/terms/" >
-    <meta name="DC.title" content="{{ document.title }}">
-    <meta name="DC.date" content="{{ document.date|date }}">
-    <meta name="DC.creator" content="{{ document.authors|map(a => a.author.name)|join(", ") }}">
+    <link rel="schema.rdf" href="http://purl.org/dc/terms/" >
+    <meta name="citation_title" content="{{ document.title }}">
+    <meta name="citation_publication_date" content="{{ document.date|date }}">
+    {% for author in document.authors %}
+        <meta name="citation_author" content="{{ author.author.name }}">
+    {% endfor %}
+    {% if document.metaContentType %}
+        <meta name="rdf:type" content="{{ document.metaContentType }}">
+    {% endif %}
 {% endblock %}
 
 {% block title %}Document{% endblock %}

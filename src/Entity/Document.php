@@ -207,4 +207,36 @@ class Document
     {
         return $this->getCreationDate();
     }
+
+    public function getIcon(): ?string
+    {
+        /** @var Category|false $category */
+        $category = $this->getCategories()
+            ->filter(function(Category $c) {
+                return $c->getIcon() !== null;
+            })
+            ->first();
+
+        if ($category) {
+            return $category->getIcon();
+        } else {
+            return null;
+        }
+    }
+
+    public function getMetaContentType(): ?string
+    {
+        /** @var Category|false $category */
+        $category = $this->getCategories()
+            ->filter(function(Category $c) {
+                return $c->getMetaContentType() !== null;
+            })
+            ->first();
+
+        if ($category) {
+            return $category->getMetaContentType();
+        } else {
+            return null;
+        }
+    }
 }

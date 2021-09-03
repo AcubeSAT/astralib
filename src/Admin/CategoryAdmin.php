@@ -7,11 +7,11 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
 use Sonata\AdminBundle\Route\RouteCollectionInterface;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\BooleanType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -20,22 +20,254 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 final class CategoryAdmin extends AbstractAdmin
 {
+    /**
+     * Source: https://getuikit.com/docs/icon
+     */
+    const ICONS = [
+        "500px",
+        "album",
+        "arrow-down",
+        "arrow-left",
+        "arrow-right",
+        "arrow-up",
+        "bag",
+        "ban",
+        "behance",
+        "bell",
+        "bold",
+        "bolt",
+        "bookmark",
+        "calendar",
+        "camera",
+        "cart",
+        "check",
+        "chevron-double-left",
+        "chevron-double-right",
+        "chevron-down",
+        "chevron-left",
+        "chevron-right",
+        "chevron-up",
+        "clock",
+        "close",
+        "cloud-download",
+        "cloud-upload",
+        "code",
+        "cog",
+        "commenting",
+        "comments",
+        "comment",
+        "copy",
+        "credit-card",
+        "database",
+        "desktop",
+        "discord",
+        "download",
+        "dribbble",
+        "etsy",
+        "expand",
+        "facebook",
+        "file-edit",
+        "file-pdf",
+        "file",
+        "file-text",
+        "flickr",
+        "folder",
+        "forward",
+        "foursquare",
+        "future",
+        "git-branch",
+        "git-fork",
+        "github-alt",
+        "github",
+        "gitter",
+        "google",
+        "grid",
+        "happy",
+        "hashtag",
+        "heart",
+        "history",
+        "home",
+        "image",
+        "info",
+        "instagram",
+        "italic",
+        "joomla",
+        "laptop",
+        "lifesaver",
+        "linkedin",
+        "link",
+        "list",
+        "location",
+        "lock",
+        "mail",
+        "menu",
+        "microphone",
+        "minus-circle",
+        "minus",
+        "more",
+        "more-vertical",
+        "move",
+        "nut",
+        "pagekit",
+        "paint-bucket",
+        "pencil",
+        "phone-landscape",
+        "phone",
+        "pinterest",
+        "play-circle",
+        "play",
+        "plus-circle",
+        "plus",
+        "print",
+        "pull",
+        "push",
+        "question",
+        "quote-right",
+        "receiver",
+        "reddit",
+        "refresh",
+        "reply",
+        "rss",
+        "search",
+        "server",
+        "settings",
+        "shrink",
+        "sign-in",
+        "sign-out",
+        "social",
+        "soundcloud",
+        "star",
+        "strikethrough",
+        "table",
+        "tablet-landscape",
+        "tablet",
+        "tag",
+        "thumbnails",
+        "tiktok",
+        "trash",
+        "triangle-down",
+        "triangle-left",
+        "triangle-right",
+        "triangle-up",
+        "tripadvisor",
+        "tumblr",
+        "tv",
+        "twitch",
+        "twitter",
+        "uikit",
+        "unlock",
+        "upload",
+        "users",
+        "user",
+        "video-camera",
+        "vimeo",
+        "warning",
+        "whatsapp",
+        "wordpress",
+        "world",
+        "xing",
+        "yelp",
+        "youtube",
+    ];
+
+    /**
+     * Source: https://github.com/zotero/translators/blob/master/RDF.js
+     */
+    const TYPES = [
+        "book",
+        "thesis",
+        "letter",
+        "manuscript",
+        "interview",
+        "report",
+        "patent",
+        "map",
+        "booksection",
+        "motionpicture",
+        "image",
+        "illustration",
+        "legislation",
+        "recording",
+        "memo",
+        "document",
+        "newsarticle",
+        "analysisnewsarticle",
+        "backgroundnewsarticle",
+        "opinionNewsarticle",
+        "reportagenewsarticle",
+        "reviewnewsarticle",
+        "scholarlyarticle",
+        "medicalscholarlyarticle",
+        "chapter",
+        "socialmediaposting",
+        "blogposting",
+        "liveblogposting",
+        "discussionforumposting",
+        "techarticle",
+        "apireference",
+        "clip",
+        "movieclip",
+        "videogameclip",
+        "tvclip",
+        "tvepisode",
+        "tvseries",
+        "episode",
+        "radioclip",
+        "radioepisode",
+        "radioseries",
+        "presentationdigitaldocument",
+        "message",
+        "emailmessage",
+        "movie",
+        "musicrecording",
+        "musicalbum",
+        "audiobook",
+        "audioobject",
+        "softwareapplication",
+        "mobileapplication",
+        "videogame",
+        "webapplication",
+        "softwaresourcecode",
+        "painting",
+        "photograph",
+        "visualartwork",
+        "sculpture",
+        "datacatalog",
+        "dataset",
+        "article",
+        "attachment",
+    ];
+
     protected function configureFormFields(FormMapper $form): void
     {
-        $form->add('name', TextType::class);
-        $form->add('abstract', CheckboxType::class, [
-            'required' => false,
-        ]);
-        $form->add('parent', EntityType::class, [
-            'class' => Category::class,
-            'required' => false,
-        ]);
-        $form->add('colour', FormType::class, [
-            'attr' => [
-                'class' => 'row'
-            ],
-            'help' => 'Visit https://material.io/resources/color to experiment with the Material palette.'
-        ]);
+        $form->with('Category', ['class' => 'col-md-6']);
+            $form->add('name', TextType::class);
+            $form->add('abstract', CheckboxType::class, [
+                'required' => false,
+            ]);
+            $form->add('parent', EntityType::class, [
+                'class' => Category::class,
+                'required' => false,
+            ]);
+        $form->end();
+        $form->with('Display', ['class' => 'col-md-6']);
+            $form->add('colour', FormType::class, [
+                'attr' => [
+                    'class' => 'row'
+                ],
+                'help' => 'Visit https://material.io/resources/color to experiment with the Material palette.'
+            ]);
+            $form->add('icon', ChoiceType::class, [
+                'required' => false,
+                'choices' => array_combine(self::ICONS, self::ICONS),
+                'help' => 'Visit https://getuikit.com/docs/icon for demos of supported icons.',
+            ]);
+            $form->add('metaContentType', ChoiceType::class, [
+                'required' => false,
+                'choices' => array_combine(array_map("ucwords", self::TYPES), self::TYPES)
+            ]);
+        $form->end();
+
 
         $colour = $form->get('colour');
         $colour->add('hue', \Symfony\Component\Form\Extension\Core\Type\ChoiceType::class, [
