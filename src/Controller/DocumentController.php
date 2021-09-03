@@ -44,12 +44,6 @@ class DocumentController extends AbstractController
     {
         if ($file = $request->files->get('file')) {
             /** @var $file UploadedFile */
-            // Here we should rename the file to a safer name and use the file upload bundle
-            // $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-
-            dump($file);
-
-            // dump($filename);
 
             $errors = $validator->validate(
                 $file,

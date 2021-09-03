@@ -40,6 +40,11 @@
                                 Features
                             </a>
                         </li>
+                        <li class="{% if route_name starts with "document_" %}uk-active{% endif %}">
+                            <a href="{{ path('document_index') }}">
+                                Documents
+                            </a>
+                        </li>
                     </ul>
 
                 </div>
