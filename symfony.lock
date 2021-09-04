@@ -97,6 +97,9 @@
     "gedmo/doctrine-extensions": {
         "version": "v3.1.0"
     },
+    "knplabs/knp-menu-bundle": {
+        "version": "v3.1.0"
+    },
     "laminas/laminas-code": {
         "version": "4.4.2"
     },
@@ -240,8 +243,46 @@
     "smalot/pdfparser": {
         "version": "v1.1.0"
     },
+    "sonata-project/admin-bundle": {
+        "version": "4.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "4.0",
+            "ref": "0e5931df1732e3dccfba42a20853049e5e9db6ae"
+        },
+        "files": [
+            "config/packages/sonata_admin.yaml",
+            "config/routes/sonata_admin.yaml",
+            "src/Admin/.gitignore"
+        ]
+    },
+    "sonata-project/block-bundle": {
+        "version": "4.7.0"
+    },
+    "sonata-project/doctrine-extensions": {
+        "version": "1.13.1"
+    },
     "sonata-project/doctrine-orm-admin-bundle": {
         "version": "4.x-dev"
+    },
+    "sonata-project/exporter": {
+        "version": "2.7.0"
+    },
+    "sonata-project/form-extensions": {
+        "version": "1.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.4",
+            "ref": "9c8a1e8ce2b1f215015ed16652c4ed18eb5867fd"
+        },
+        "files": [
+            "config/packages/sonata_form.yaml"
+        ]
+    },
+    "sonata-project/twig-extensions": {
+        "version": "1.7.0"
     },
     "symfony/asset": {
         "version": "v5.3.4"

@@ -2,6 +2,12 @@ image: php:7.4
 
 test:
   before_script:
-    - composer install
+    - apt-get update
+    - apt-get install zip unzip libldap-dev
+    - docker-php-ext-install -j$(nproc) ldap ctype iconv json
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php composer-setup.php
+    - php -r "unlink('composer-setup.php');"
+    - php composer.phar install
   script:
     - vendor/bin/phpunit
