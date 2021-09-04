@@ -85,6 +85,9 @@
     "doctrine/sql-formatter": {
         "version": "1.1.1"
     },
+    "easyrdf/easyrdf": {
+        "version": "1.1.1"
+    },
     "egulias/email-validator": {
         "version": "3.1.1"
     },
@@ -168,6 +171,12 @@
     "psr/log": {
         "version": "1.1.4"
     },
+    "sabre/uri": {
+        "version": "2.2.1"
+    },
+    "sabre/xml": {
+        "version": "2.2.3"
+    },
     "sebastian/cli-parser": {
         "version": "1.0.1"
     },
@@ -227,6 +236,9 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "smalot/pdfparser": {
+        "version": "v1.1.0"
     },
     "sonata-project/doctrine-orm-admin-bundle": {
         "version": "4.x-dev"

@@ -39,6 +39,13 @@ services:
         tags:
             - { name: kernel.event_listener, event: App\Event\FileUpdatedEvent }
 
+    AstraLib\PDFParser\PDFMetadataParser:
+        public: true
+
+    AstraLib\PDFParser\XMPParser: ~
+
+    Smalot\PdfParser\Parser: ~
+
     admin.document:
         class: App\Admin\DocumentAdmin
         arguments: [~, App\Entity\Document, ~]
