@@ -71,6 +71,17 @@ class XMPParser
     }
 
     public function parseString(string $xmpString) {
+        // Remove xpacket tags from the start and end of the string
+//        $xmpString = trim($xmpString);
+//        $xmpString = preg_replace('/^<\?xpacket[^>]+>/', '', $xmpString);
+//        $xmpString = preg_replace('/<\?xpacket[^>]+>$/', '', $xmpString);
+//        $xmpString = trim($xmpString);
+
+        // Some old AcubeSAT documents did not contain proper references to xmlns:xmpidq. Correct this here
+        if (strpos($xmpString, 'xmlns:xmpidq') === false){
+            $xmpString = preg_replace("/(<rdf:Description)/", '\1 xmlns:xmpidq="http://ns.adobe.com/xmp/Identifier/qual/1.0"', $xmpString);
+        }
+
         $rdf = new Graph('http://www.w3.org/1999/02/22-rdf-syntax-ns#'); // A random URI
         $rdf->parse($xmpString);
 

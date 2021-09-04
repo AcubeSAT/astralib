@@ -50,7 +50,7 @@ class PDFMetadataParser
             // XMP metadata
             $metadataObjectName = $pdf->getDictionary()['Metadata'] ?? null;
             if ($metadataObjectName) {
-                $xmpString = $pdf->getObjectById(reset($metadataObjectName))->getContent();
+                $xmpString = $pdf->getObjectById(end($metadataObjectName))->getContent();
                 $xmpMetadata = $this->xmpParser->parseString($xmpString);
                 $return = array_merge($return, $xmpMetadata);
             }
