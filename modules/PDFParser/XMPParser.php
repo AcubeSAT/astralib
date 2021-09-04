@@ -7,6 +7,7 @@ use EasyRdf\Graph;
 use EasyRdf\Literal;
 use EasyRdf\RdfNamespace;
 use EasyRdf\Resource;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * A class that reads XMP data from a PDF file and emits events to services that might want to do something with those
@@ -14,12 +15,19 @@ use EasyRdf\Resource;
  */
 class XMPParser
 {
-    public function __construct()
+    /**
+     * @param EventDispatcherInterface $dispatcher
+     */
+    private $dispatcher;
+
+    public function __construct(EventDispatcherInterface $dispatcher)
     {
         // Add RDF namespaces because EasyRdf requires this to fetch entries using their XML tag names
         RdfNamespace::set("xmp", "http://ns.adobe.com/xap/1.0/");
         RdfNamespace::set("xmpMM", "http://ns.adobe.com/xap/1.0/mm/");
         RdfNamespace::set("stVer", "http://ns.adobe.com/xap/1.0/sType/Version#");
+
+        $this->dispatcher = $dispatcher;
     }
 
     public function parse(\SplFileInfo $file) {
@@ -116,6 +124,16 @@ class XMPParser
 //            }
         }
 
-        return $metadata;
+        // Document version
+        if ($literal = $rdf->getLiteral($uri, "xmpMM:VersionID")) {
+            $metadata['version'] = $literal->getValue();
+        }
+
+        // Propagate the event into any listeners or plugins that want some piece of the metadata. The listeners have
+        // the permission to overwrite the event's metadata, so we need to return the processed metadata to our caller.
+        $event = new XMPMetadataEvent($rdf, $metadata);
+        $this->dispatcher->dispatch($event, $event::NAME);
+
+        return $event->getMetadata();
     }
 }

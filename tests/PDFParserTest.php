@@ -38,5 +38,9 @@ final class PDFParserTest extends KernelTestCase
         $this->assertEquals([
             "Savvidis Georgios"
         ], $results['authors']);
+
+        $this->assertEquals('1.1', $results['version']);
+        $this->assertEquals(false, $results['public']);
+        $this->assertEquals('vt1.5-dev', $results['templateVersion']);
     }
 }

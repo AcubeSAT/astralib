@@ -46,6 +46,10 @@ services:
 
     Smalot\PdfParser\Parser: ~
 
+    AstraLib\AcubesatMetadata\XMPParser:
+        tags:
+            - { name: kernel.event_listener, event: pdfparser.xmp }
+
     admin.document:
         class: App\Admin\DocumentAdmin
         arguments: [~, App\Entity\Document, ~]
