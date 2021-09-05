@@ -56,7 +56,7 @@ final class MetadataAdmin extends AbstractAdmin
             },
             function ($tagsAsString) {
                 // string, need to be transform as stdClass for json type for persist in DB
-                return json_decode($tagsAsString);
+                return json_decode($tagsAsString) ?: $tagsAsString;
             }
         ));
     }

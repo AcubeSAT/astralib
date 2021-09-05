@@ -63,3 +63,7 @@ body {
     max-width: calc((100vw - 1300px) / 2);
     min-width: 200px;
 }
+
+.document-sidemenu.uk-tab-left > * > a {
+    padding: 10px 20px;
+}

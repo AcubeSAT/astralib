@@ -51,8 +51,28 @@
     </header>
 {% endblock %}
 
+{% block container_start %}
+    <div class="uk-flex uk-margin-top uk-flex-around uk-width-expand">
+        <aside class="header-sidelinks uk-flex uk-flex-center uk-margin-top">
+            <div class="document-sidemenu">
+                <ul class="uk-tab-left document-sidemenu" uk-tab="connect: #content-switcher; animation: uk-animation-slide-top-small">
+                    <li><a href="#">Document Information</a></li>
+                    <li><a href="#">Metadata</a></li>
+                </ul>
+            </div>
+        </aside>
+    <main class="uk-container flex-self-expand uk-margin-remove">
+{% endblock %}
+
+{% block container_end %}
+    </main>
+        <aside class="header-sidelinks"></aside>
+    </div>
+{% endblock %}
+
 {% block body %}
-    <div class="uk-child-width-expand@s uk-grid-divider" uk-grid>
+    <div class="uk-switcher" id="content-switcher">
+    <div id="document-information" class="uk-child-width-expand@s uk-grid-divider" uk-grid>
         <section class="uk-width-expand@m">
             <h3>Document Information</h3>
             <dl class="uk-description-list">
@@ -79,7 +99,7 @@
         <section class="uk-width-auto@m">
             <h3>Authors</h3>
             <p>
-            <table class="uk-table uk-table-small uk-table-divider">
+            <table class="uk-table uk-table-big uk-table-divider">
                 <thead>
                 <tr>
                     <th>Type</th>
@@ -97,5 +117,48 @@
             </table>
             </p>
         </section>
+    </div>
+    <div id="document-metadata" class="uk-child-width-expand@s uk-grid-divider" uk-grid>
+        <section class="uk-width-expand@m">
+            <h3>Versions</h3>
+            <table class="uk-table uk-table-big uk-table-divider">
+                <thead>
+                <tr>
+                    <th>Version Number</th>
+                    <th>Date</th>
+                    <th>Variant</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for version in document.versions %}
+                    <tr>
+                        <td>{{ version.number }}</td>
+                        <td>{{ version.date|date }}</td>
+                        <td>{{ version.variant|join(", ") }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        <section class="uk-width-auto@m">
+            <h3>Metadata</h3>
+            <table class="uk-table uk-table-small uk-table-divider">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for metadatum in document.latestVersion.metadata %}
+                    <tr>
+                        <td>{{ metadatum.name }}</td>
+                        <td>{{ metadatum.data }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
     </div>
 {% endblock %}
