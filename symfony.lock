@@ -103,6 +103,12 @@
     "laminas/laminas-code": {
         "version": "4.4.2"
     },
+    "league/flysystem": {
+        "version": "2.2.3"
+    },
+    "league/mime-type-detection": {
+        "version": "1.7.0"
+    },
     "monolog/monolog": {
         "version": "2.3.2"
     },
