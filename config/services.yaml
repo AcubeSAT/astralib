@@ -50,42 +50,45 @@ services:
         tags:
             - { name: kernel.event_listener, event: pdfparser.xmp }
 
-    admin.document:
+    App\Admin\DocumentAdmin:
         class: App\Admin\DocumentAdmin
         arguments: [~, App\Entity\Document, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Document }
+        calls:
+            - [ addChild, [ '@App\Admin\VersionAdmin', 'document' ] ]
 
-    admin.category:
+    App\Admin\VersionAdmin:
+        class: App\Admin\VersionAdmin
+        arguments: [ ~, App\Entity\Version, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Version }
+        calls:
+            - [ addChild, [ '@App\Admin\MetadataAdmin', 'version' ] ]
+
+    App\Admin\CategoryAdmin:
         class: App\Admin\CategoryAdmin
         arguments: [~, App\Entity\Category, App\Controller\Admin\CategoryAdminController]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Category }
 
-    admin.author:
+    App\Admin\AuthorAdmin:
         class: App\Admin\AuthorAdmin
         arguments: [~, App\Entity\Author, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Author }
+            - { name: sonata.admin, manager_type: orm, label: Author }
         public: true
 
-    admin.author_document:
+    App\Admin\AuthorDocumentAdmin:
         class: App\Admin\AuthorDocumentAdmin
         arguments: [~, App\Entity\AuthorDocument, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: AuthorDocument }
+            - { name: sonata.admin, manager_type: orm, label: AuthorDocument }
         public: true
 
-    admin.metadata:
+    App\Admin\MetadataAdmin:
         class: App\Admin\MetadataAdmin
         arguments: [~, App\Entity\Metadata, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Metadata }
-        public: true
-
-    admin.version:
-        class: App\Admin\VersionAdmin
-        arguments: [~, App\Entity\Version, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: Version }
+            - { name: sonata.admin, manager_type: orm, label: Metadata }
         public: true

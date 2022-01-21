@@ -16,8 +16,7 @@ final class AuthorDocumentAdmin extends AbstractAdmin
 {
     protected function configureRoutes(RouteCollectionInterface $collection): void
     {
-        $collection->remove('list');
-        $collection->remove('show');
+        $collection->clear();
     }
 
     protected function configureDatagridFilters(DatagridMapper $filter): void

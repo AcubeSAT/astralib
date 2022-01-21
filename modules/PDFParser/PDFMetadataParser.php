@@ -13,7 +13,7 @@ class PDFMetadataParser
     private $logger;
 
     /**
-     * @var \Smalot\PdfParser\Parser
+     * @var Parser
      */
     private $parser;
 

@@ -51,7 +51,7 @@ class Version
     private $metadata;
 
     /**
-     * @ORM\OneToMany(targetEntity=Source::class, mappedBy="version", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Source::class, mappedBy="version", orphanRemoval=true, cascade={"persist"})
      */
     private $sources;
 

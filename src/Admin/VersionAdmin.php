@@ -8,15 +8,23 @@ use App\Entity\Source;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\FieldDescription\FieldDescriptionFactoryInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Sonata\AdminBundle\Form\Type\ModelListType;
 use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\AdminBundle\Route\RouteCollectionInterface;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\CollectionType;
 
 final class VersionAdmin extends AbstractAdmin
 {
+    public function __construct(string $code, string $class, string $baseControllerName)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+    }
+
+
     protected function configureDatagridFilters(DatagridMapper $filter): void
     {
         $filter
@@ -34,7 +42,7 @@ final class VersionAdmin extends AbstractAdmin
         $list
             ->add('id')
             ->add('document')
-            ->add('number')
+            ->addIdentifier('number')
             ->add('variant')
             ->add('public')
             ->add('date')
@@ -91,7 +99,17 @@ final class VersionAdmin extends AbstractAdmin
             ->add('public')
             ->add('date')
             ->add('sources')
-            ->add('metadata')
+            ->add('metadata', null, [
+                'admin_code' => 'App\Admin\DocumentAdmin|App\Admin\VersionAdmin|App\Admin\MetadataAdmin'
+            ])
             ;
+    }
+
+    protected function configureRoutes(RouteCollectionInterface $collection): void
+    {
+        if (!$this->isChild()) {
+            // Clear route configuration on parent to prevent this from showing up as primary
+            $collection->clear();
+        }
     }
 }

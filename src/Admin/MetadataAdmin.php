@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollectionInterface;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\CallbackTransformer;
 
@@ -28,9 +29,10 @@ final class MetadataAdmin extends AbstractAdmin
     {
         $list
             ->add('id')
-            ->add('name')
-            ->add('data')
+            ->addIdentifier('name')
+            ->addIdentifier('data')
             ->add('locked')
+            ->add('version')
             ->add(ListMapper::NAME_ACTIONS, null, [
                 'actions' => [
                     'show' => [],
@@ -69,5 +71,13 @@ final class MetadataAdmin extends AbstractAdmin
             ->add('data')
             ->add('locked')
             ;
+    }
+
+    protected function configureRoutes(RouteCollectionInterface $collection): void
+    {
+        if (!$this->isChild()) {
+            // Clear route configuration on parent to prevent this from showing up as primary
+            $collection->clear();
+        }
     }
 }
