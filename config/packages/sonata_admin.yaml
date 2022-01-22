@@ -7,16 +7,14 @@ sonata_block:
             contexts: [admin]
 
 sonata_admin:
+    title: Astralib Admin
     dashboard:
         groups:
             default:
                 label: Administrator
             debug:
-                label: ~
+                label: Debugging
                 label_catalogue: ~
                 items:
                     - route:        app_admin_debug_pdf
-                      label:        Blog
-#                    - route:        blog_article
-#                      route_params: { articleId: 3 }
-#                      label:        Article
+                      label:        PDF file
