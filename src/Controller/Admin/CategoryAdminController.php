@@ -12,9 +12,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CategoryAdminController extends CRUDController
 {
-    /**
-     * @param $id
-     */
     public function propagateColoursAction(Request $request): Response
     {
         $this->assertObjectExists($request, true);

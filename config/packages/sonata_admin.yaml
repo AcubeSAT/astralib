@@ -5,3 +5,18 @@ sonata_block:
         # enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
             contexts: [admin]
+
+sonata_admin:
+    dashboard:
+        groups:
+            default:
+                label: Administrator
+            debug:
+                label: ~
+                label_catalogue: ~
+                items:
+                    - route:        app_admin_debug_pdf
+                      label:        Blog
+#                    - route:        blog_article
+#                      route_params: { articleId: 3 }
+#                      label:        Article
